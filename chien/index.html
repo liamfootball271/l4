@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="fr">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="theme-color" content="#f6f3eb">
+	<meta name="description" content="Museau, le guide joyeux pour mieux connaître les chiens et trouver le compagnon qui vous correspond.">
+	<title>Museau — La vie est plus belle avec un chien</title>
+	<style>
+		:root {
+			color-scheme: light;
+			--ink: #202923;
+			--muted: #68736a;
+			--paper: #f6f3eb;
+			--white: #fffefa;
+			--green: #315e48;
+			--green-dark: #224634;
+			--lime: #d6e88c;
+			--orange: #ed8d62;
+			--line: #e7e5dc;
+			--shadow: 0 22px 60px rgb(31 48 36 / 10%);
+			font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+			font-synthesis: none;
+			text-rendering: optimizeLegibility;
+		}
+
+		* { box-sizing: border-box; }
+		html { scroll-behavior: smooth; }
+		body { margin: 0; color: var(--ink); background: var(--paper); }
+		button, input { font: inherit; }
+		button { cursor: pointer; }
+		.shell { width: min(1160px, calc(100% - 48px)); margin: 0 auto; }
+
+		.topbar { height: 82px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+		.brand { display: inline-flex; align-items: center; gap: 10px; color: var(--ink); font-size: 21px; font-weight: 850; letter-spacing: -1px; }
+		.brand-mark { width: 36px; height: 36px; display: grid; place-items: center; border-radius: 13px; color: var(--green-dark); background: var(--lime); font-size: 21px; transform: rotate(-8deg); }
+		.button-primary { border: 0; border-radius: 999px; padding: 13px 20px; color: white; background: var(--green); font-size: 13px; font-weight: 750; transition: background .2s, transform .2s; }
+		.button-primary:hover { background: var(--green-dark); transform: translateY(-2px); }
+
+		.hero { display: grid; grid-template-columns: 1fr .93fr; align-items: center; min-height: 600px; gap: 54px; padding: 30px 0 64px; }
+		.eyebrow { display: inline-flex; align-items: center; gap: 8px; color: var(--green); font-size: 11px; font-weight: 850; letter-spacing: 1.55px; text-transform: uppercase; }
+		.eyebrow-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--orange); }
+		h1 { max-width: 590px; margin: 20px 0 20px; font-size: clamp(48px, 6.2vw, 76px); line-height: .99; letter-spacing: -5px; font-weight: 850; }
+		h1 span { color: var(--green); }
+		.hero-copy { max-width: 440px; margin: 0; color: var(--muted); font-size: 16px; line-height: 1.75; }
+		.social-proof { display: flex; align-items: center; gap: 12px; margin-top: 38px; color: var(--muted); font-size: 12px; }
+		.avatars { display: flex; padding-left: 4px; }
+		.avatar { display: grid; width: 30px; height: 30px; place-items: center; margin-left: -5px; border: 2px solid var(--paper); border-radius: 50%; background: #e8bda1; font-size: 15px; }
+		.avatar:nth-child(2) { background: #d4dfb0; }
+		.avatar:nth-child(3) { background: #eacb88; }
+		.avatar:nth-child(4) { background: #c3d8de; }
+		.social-proof strong { color: var(--ink); }
+
+		.hero-visual { position: relative; min-height: 490px; }
+		.hero-photo { position: absolute; inset: 0 26px 16px 12px; overflow: hidden; border-radius: 42% 42% 28px 28px; background: #d5dfc3; box-shadow: var(--shadow); }
+		.hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+		.hero-photo::after { position: absolute; inset: 45% 0 0; content: ""; background: linear-gradient(transparent, rgb(23 32 25 / 32%)); }
+		.photo-note { position: absolute; z-index: 1; right: 50px; bottom: 43px; left: 38px; color: white; }
+		.photo-note strong { display: block; font-size: 21px; letter-spacing: -.5px; }
+		.photo-note span { display: block; margin-top: 5px; color: rgb(255 255 255 / 82%); font-size: 12px; }
+		.floating-note { position: absolute; top: 56px; right: -14px; display: flex; align-items: center; gap: 10px; padding: 13px 16px; border: 1px solid rgb(255 255 255 / 70%); border-radius: 16px; background: var(--white); box-shadow: 0 12px 34px rgb(35 48 39 / 13%); transform: rotate(3deg); }
+		.floating-note-icon { display: grid; width: 34px; height: 34px; place-items: center; border-radius: 11px; background: #fce2d5; font-size: 18px; }
+		.floating-note strong, .floating-note small { display: block; }
+		.floating-note strong { font-size: 11px; }
+		.floating-note small { margin-top: 3px; color: var(--muted); font-size: 10px; }
+		.sunburst { position: absolute; z-index: -1; right: -15px; bottom: 5px; width: 128px; height: 128px; border-radius: 50%; background: var(--lime); }
+
+		.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 25px 34px; border: 1px solid var(--line); border-radius: 20px; background: rgb(255 254 250 / 68%); }
+		.stat { display: flex; justify-content: center; align-items: center; gap: 13px; }
+		.stat + .stat { border-left: 1px solid var(--line); }
+		.stat-icon { font-size: 23px; }
+		.stat strong, .stat small { display: block; }
+		.stat strong { font-size: 20px; letter-spacing: -.7px; }
+		.stat small { margin-top: 2px; color: var(--muted); font-size: 11px; }
+
+		.section { padding: 104px 0 20px; }
+		.section-heading { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 30px; }
+		.section-heading h2 { margin: 11px 0 0; font-size: clamp(34px, 4vw, 46px); line-height: 1.06; letter-spacing: -2.3px; }
+		.section-heading p { max-width: 360px; margin: 0 0 4px; color: var(--muted); font-size: 13px; line-height: 1.7; }
+		.filters { display: flex; flex-wrap: wrap; gap: 9px; margin-bottom: 22px; }
+		.filter-button { border: 1px solid #e3e4dc; border-radius: 999px; padding: 10px 15px; color: #58645b; background: transparent; font-size: 11px; font-weight: 750; transition: .2s; }
+		.filter-button:hover, .filter-button.active { border-color: var(--green); color: white; background: var(--green); }
+		.dog-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 17px; }
+		.dog-card { overflow: hidden; border: 1px solid #eceae2; border-radius: 18px; background: var(--white); transition: transform .22s, box-shadow .22s; }
+		.dog-card:hover { transform: translateY(-5px); box-shadow: 0 16px 36px rgb(31 48 36 / 9%); }
+		.dog-image { position: relative; height: 205px; overflow: hidden; background: #e9e4d8; }
+		.dog-image img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s; }
+		.dog-card:hover .dog-image img { transform: scale(1.04); }
+		.favorite { position: absolute; top: 12px; right: 12px; display: grid; width: 34px; height: 34px; place-items: center; border: 0; border-radius: 50%; color: #354039; background: rgb(255 254 250 / 94%); font-size: 17px; }
+		.favorite[aria-pressed="true"] { color: #df6f61; }
+		.dog-content { padding: 17px 17px 16px; }
+		.dog-name-row { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+		.dog-name-row h3 { margin: 0; font-size: 17px; letter-spacing: -.45px; }
+		.dog-name-row span { color: var(--muted); font-size: 10px; }
+		.dog-content p { min-height: 35px; margin: 9px 0 15px; color: var(--muted); font-size: 11px; line-height: 1.6; }
+		.dog-meta { display: flex; justify-content: space-between; align-items: center; padding-top: 12px; border-top: 1px solid #efeee8; }
+		.energy { color: #7b866e; font-size: 10px; }
+		.profile-button { border: 0; padding: 4px 0 4px 8px; color: var(--green); background: transparent; font-size: 10px; font-weight: 800; }
+		.empty-state { display: none; padding: 35px; border: 1px dashed #d9ded1; border-radius: 18px; color: var(--muted); text-align: center; }
+
+		.guide { display: grid; grid-template-columns: .9fr 1.1fr; gap: 58px; align-items: center; margin-top: 108px; padding: 47px; border-radius: 27px; color: white; background: var(--green-dark); }
+		.guide h2 { margin: 13px 0 12px; font-size: clamp(32px, 4vw, 44px); line-height: 1.03; letter-spacing: -2px; }
+		.guide-copy { margin: 0; color: #d3dfd4; font-size: 13px; line-height: 1.7; }
+		.guide .eyebrow { color: var(--lime); }
+		.guide-list { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+		.guide-item { display: flex; align-items: flex-start; gap: 12px; padding: 16px 14px; border: 1px solid rgb(255 255 255 / 13%); border-radius: 14px; background: rgb(255 255 255 / 5%); }
+		.guide-item > span { font-size: 20px; }
+		.guide-item strong, .guide-item small { display: block; }
+		.guide-item strong { font-size: 12px; }
+		.guide-item small { margin-top: 5px; color: #bfd0c2; font-size: 10px; line-height: 1.5; }
+
+		.newsletter { display: flex; align-items: center; justify-content: space-between; gap: 30px; margin: 95px 0 80px; padding: 31px 38px; border-radius: 20px; background: #e9eddb; }
+		.newsletter h2 { margin: 0; font-size: 23px; letter-spacing: -.8px; }
+		.newsletter p { margin: 7px 0 0; color: var(--muted); font-size: 11px; }
+		.newsletter form { display: flex; width: min(405px, 100%); padding: 5px; border: 1px solid #dce1cf; border-radius: 999px; background: var(--white); }
+		.newsletter input { min-width: 0; flex: 1; border: 0; outline: 0; padding: 0 12px; color: var(--ink); background: transparent; font-size: 11px; }
+		.newsletter form button { border: 0; border-radius: 999px; padding: 11px 17px; color: white; background: var(--green); font-size: 10px; font-weight: 750; }
+		.newsletter-message { min-height: 14px; margin-top: 8px; color: var(--green); font-size: 11px; }
+		footer { display: flex; justify-content: space-between; gap: 20px; padding: 23px 0 30px; border-top: 1px solid var(--line); color: var(--muted); font-size: 10px; }
+		footer .brand { font-size: 16px; }
+
+		dialog { width: min(470px, calc(100% - 32px)); padding: 0; overflow: hidden; border: 0; border-radius: 22px; color: var(--ink); background: var(--white); box-shadow: 0 25px 80px rgb(0 0 0 / 25%); }
+		dialog::backdrop { background: rgb(23 34 27 / 55%); backdrop-filter: blur(3px); }
+		.dialog-image { width: 100%; height: 230px; object-fit: cover; }
+		.dialog-content { padding: 24px; }
+		.dialog-content h2 { margin: 0 0 9px; font-size: 26px; letter-spacing: -1px; }
+		.dialog-content p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.7; }
+		.dialog-bottom { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-top: 20px; }
+		.dialog-close { border: 1px solid var(--line); border-radius: 999px; padding: 11px 17px; color: var(--ink); background: transparent; font-size: 11px; font-weight: 750; }
+		.dialog-fact { color: var(--green); font-size: 11px; font-weight: 750; }
+		.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+
+		@media (max-width: 900px) {
+			.hero { gap: 26px; min-height: 520px; }
+			.hero-visual { min-height: 420px; }
+			.dog-grid { grid-template-columns: repeat(2, 1fr); }
+			.guide { gap: 30px; padding: 34px; }
+		}
+		@media (max-width: 640px) {
+			.shell { width: min(100% - 32px, 480px); }
+			.topbar { height: 70px; }
+			.nav { display: none; }
+			.button-primary { padding: 11px 15px; font-size: 11px; }
+			.hero { grid-template-columns: 1fr; gap: 12px; padding: 35px 0 48px; }
+			h1 { max-width: 460px; font-size: clamp(51px, 15vw, 70px); letter-spacing: -3.8px; }
+			.hero-copy { font-size: 14px; }
+			.hero-visual { min-height: 380px; margin-top: 14px; }
+			.hero-photo { inset: 0 16px 13px 5px; border-radius: 43% 43% 22px 22px; }
+			.floating-note { right: -2px; }
+			.stats { gap: 5px; padding: 17px 9px; }
+			.stat { flex-direction: column; gap: 5px; text-align: center; }
+			.stat + .stat { border-left: 1px solid var(--line); }
+			.stat-icon { font-size: 18px; }
+			.stat strong { font-size: 16px; }
+			.stat small { font-size: 9px; }
+			.section { padding-top: 77px; }
+			.section-heading { display: block; }
+			.section-heading p { margin-top: 12px; }
+			.dog-grid { gap: 11px; }
+			.dog-image { height: 155px; }
+			.dog-content { padding: 13px 12px; }
+			.dog-name-row { display: block; }
+			.dog-name-row span { display: block; margin-top: 4px; }
+			.dog-content p { min-height: 52px; font-size: 10px; }
+			.guide { grid-template-columns: 1fr; gap: 25px; margin-top: 78px; padding: 27px 21px; }
+			.guide-list { gap: 8px; }
+			.guide-item { gap: 8px; padding: 12px 9px; }
+			.guide-item strong { font-size: 10px; }
+			.guide-item small { font-size: 9px; }
+			.newsletter { align-items: stretch; flex-direction: column; margin: 70px 0 55px; padding: 25px 20px; }
+			.newsletter form { width: 100%; }
+			footer { align-items: flex-start; flex-direction: column; }
+		}
+		@media (prefers-reduced-motion: reduce) {
+			*, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+		}
+	</style>
+</head>
+<body>
+	<header class="shell topbar">
+		<div class="brand" aria-label="Museau, accueil"><span class="brand-mark" aria-hidden="true">🐾</span> museau<span style="color:var(--orange)">.</span></div>
+	</header>
+
+	<main>
+		<section class="shell hero" aria-labelledby="hero-title">
+			<div>
+				<div class="eyebrow"><span class="eyebrow-dot"></span> Le guide des amoureux des chiens</div>
+				<h1 id="hero-title">La vie est plus belle <span>avec un chien.</span></h1>
+				<p class="hero-copy">Petits museaux, grandes aventures. Découvrez le compagnon qui vous ressemble et toutes les clés pour lui offrir une vie heureuse.</p>
+				<div class="social-proof">
+					<div class="avatars" aria-hidden="true"><span class="avatar">🐶</span><span class="avatar">🐕</span><span class="avatar">🐩</span><span class="avatar">🐾</span></div>
+					<span><strong>+12 000</strong> truffes heureuses nous suivent</span>
+				</div>
+			</div>
+			<div class="hero-visual" aria-label="Un golden retriever profite d'une balade">
+				<div class="sunburst"></div>
+				<div class="hero-photo">
+					<img src="https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=1100&q=85" alt="Golden retriever au pelage doré dans l'herbe" fetchpriority="high">
+					<div class="photo-note"><strong>Le bonheur, c'est une truffe au vent.</strong><span>Et quelqu'un pour lancer la balle, encore une fois.</span></div>
+				</div>
+				<div class="floating-note"><span class="floating-note-icon">☀️</span><span><strong>Un bon jour</strong><small>commence avec une balade</small></span></div>
+			</div>
+		</section>
+
+		<section class="shell stats" aria-label="Museau en quelques chiffres">
+			<div class="stat"><span class="stat-icon">🐕</span><span><strong>350+</strong><small>races à découvrir</small></span></div>
+			<div class="stat"><span class="stat-icon">💛</span><span><strong>100%</strong><small>d'amour à partager</small></span></div>
+			<div class="stat"><span class="stat-icon">🌿</span><span><strong>1 vie</strong><small>à rendre plus belle</small></span></div>
+		</section>
+
+		<section class="shell section" id="races" aria-labelledby="races-title">
+			<div class="section-heading">
+				<div><div class="eyebrow"><span class="eyebrow-dot"></span> La belle rencontre</div><h2 id="races-title">Quel chien est fait<br>pour vous&nbsp;?</h2></div>
+				<p>Chaque chien a sa petite personnalité. Choisissez votre rythme de vie et laissez-vous inspirer.</p>
+			</div>
+			<div class="filters" role="group" aria-label="Filtrer les chiens par taille">
+				<button type="button" class="filter-button active" data-filter="all" aria-pressed="true">Tous les chiens</button>
+				<button type="button" class="filter-button" data-filter="small" aria-pressed="false">Petits formats</button>
+				<button type="button" class="filter-button" data-filter="medium" aria-pressed="false">Formats moyens</button>
+				<button type="button" class="filter-button" data-filter="large" aria-pressed="false">Grands compagnons</button>
+			</div>
+			<div class="dog-grid" id="dog-grid">
+				<article class="dog-card" data-size="large" data-name="Golden retriever" data-image="https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=900&q=85" data-description="Doux, joueur et toujours partant pour une aventure, le Golden est un compagnon sociable qui adore partager le quotidien de sa famille. Il s'épanouit avec de belles promenades et beaucoup de présence." data-fact="Grand cœur · 25–34 kg">
+					<div class="dog-image"><img src="https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=700&q=80" alt="Golden retriever souriant" loading="lazy"><button class="favorite" type="button" aria-label="Ajouter Golden retriever aux favoris" aria-pressed="false">♡</button></div>
+					<div class="dog-content"><div class="dog-name-row"><h3>Golden retriever</h3><span>Grand format</span></div><p>Le meilleur ami de toutes vos aventures.</p><div class="dog-meta"><span class="energy">⚡ Énergie joyeuse</span><button type="button" class="profile-button">Son petit portrait&nbsp; ↗</button></div></div>
+				</article>
+				<article class="dog-card" data-size="small" data-name="Cavalier King Charles" data-image="https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=900&q=85" data-description="Affectueux et facile à vivre, le Cavalier King Charles aime autant les promenades tranquilles que les soirées blotti près de vous. Sa nature douce en fait un merveilleux chien de compagnie." data-fact="Câlin expert · 5–8 kg">
+					<div class="dog-image"><img src="https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=700&q=80" alt="Petit chien au regard tendre" loading="lazy"><button class="favorite" type="button" aria-label="Ajouter Cavalier King Charles aux favoris" aria-pressed="false">♡</button></div>
+					<div class="dog-content"><div class="dog-name-row"><h3>Cavalier King Charles</h3><span>Petit format</span></div><p>Un tendre compagnon qui aime la douceur.</p><div class="dog-meta"><span class="energy">⚡ Énergie paisible</span><button type="button" class="profile-button">Son petit portrait&nbsp; ↗</button></div></div>
+				</article>
+				<article class="dog-card" data-size="medium" data-name="Cocker spaniel" data-image="https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?auto=format&fit=crop&w=900&q=85" data-description="Curieux, enthousiaste et proche de ses humains, le Cocker spaniel apporte de la bonne humeur partout où il passe. Il aime explorer, jouer et profiter de longues balades en plein air." data-fact="Curieux de nature · 12–16 kg">
+					<div class="dog-image"><img src="https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?auto=format&fit=crop&w=700&q=80" alt="Chien de taille moyenne en promenade" loading="lazy"><button class="favorite" type="button" aria-label="Ajouter Cocker spaniel aux favoris" aria-pressed="false">♡</button></div>
+					<div class="dog-content"><div class="dog-name-row"><h3>Cocker spaniel</h3><span>Format moyen</span></div><p>Un explorateur joyeux aux oreilles douces.</p><div class="dog-meta"><span class="energy">⚡ Toujours partant</span><button type="button" class="profile-button">Son petit portrait&nbsp; ↗</button></div></div>
+				</article>
+				<article class="dog-card" data-size="small" data-name="Bouledogue français" data-image="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=900&q=85" data-description="Petit clown au grand cœur, le Bouledogue français est un citadin attachant qui apprécie les moments de jeu autant que les siestes confortables. Il aime surtout être près de ses proches." data-fact="Charmeur officiel · 8–14 kg">
+					<div class="dog-image"><img src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=700&q=80" alt="Bouledogue français assis" loading="lazy"><button class="favorite" type="button" aria-label="Ajouter Bouledogue français aux favoris" aria-pressed="false">♡</button></div>
+					<div class="dog-content"><div class="dog-name-row"><h3>Bouledogue français</h3><span>Petit format</span></div><p>La bonne humeur tient dans un petit gabarit.</p><div class="dog-meta"><span class="energy">⚡ Zen &amp; joueur</span><button type="button" class="profile-button">Son petit portrait&nbsp; ↗</button></div></div>
+				</article>
+			</div>
+			<p class="empty-state" id="empty-state">Aucun compagnon dans cette catégorie pour le moment.</p>
+		</section>
+
+		<section class="shell guide" id="conseils" aria-labelledby="guide-title">
+			<div>
+				<div class="eyebrow"><span class="eyebrow-dot"></span> Les bonnes habitudes</div>
+				<h2 id="guide-title">Un chien heureux,<br>ça se construit à deux.</h2>
+				<p class="guide-copy">Pas besoin d'être parfait. Un peu d'attention, beaucoup de patience et quelques habitudes simples font déjà une grande différence.</p>
+			</div>
+			<div class="guide-list">
+				<div class="guide-item"><span>🚶</span><div><strong>Sortir tous les jours</strong><small>Des balades adaptées à son énergie.</small></div></div>
+				<div class="guide-item"><span>🥣</span><div><strong>Bien manger</strong><small>Une alimentation choisie avec soin.</small></div></div>
+				<div class="guide-item"><span>🩺</span><div><strong>Prendre soin de lui</strong><small>Vétérinaire, prévention et douceur.</small></div></div>
+				<div class="guide-item"><span>🧸</span><div><strong>Jouer et apprendre</strong><small>Des petits jeux pour grandir ensemble.</small></div></div>
+			</div>
+		</section>
+
+		<section class="shell newsletter" id="lettre" aria-labelledby="newsletter-title">
+			<div><h2 id="newsletter-title">Une dose de bonheur dans votre boîte mail 🐾</h2><p>Conseils, idées de balades et histoires de truffes. Promis, pas de spam.</p><div class="newsletter-message" id="newsletter-message" aria-live="polite"></div></div>
+			<form id="newsletter-form">
+				<label class="sr-only" for="email">Votre adresse e-mail</label>
+				<input id="email" name="email" type="email" placeholder="vous@exemple.fr" autocomplete="email" required>
+				<button type="submit">Je m'inscris&nbsp; ↗</button>
+			</form>
+		</section>
+	</main>
+
+	<footer class="shell"><div class="brand"><span class="brand-mark" aria-hidden="true">🐾</span> museau<span style="color:var(--orange)">.</span></div><span>Fait avec amour et quelques poils sur le pull&nbsp; ♥</span><span>© 2026 Museau</span></footer>
+
+	<dialog id="dog-dialog" aria-labelledby="dialog-title">
+		<img class="dialog-image" id="dialog-image" src="" alt="">
+		<div class="dialog-content"><div class="eyebrow"><span class="eyebrow-dot"></span> Rencontre du jour</div><h2 id="dialog-title"></h2><p id="dialog-description"></p><div class="dialog-bottom"><span class="dialog-fact" id="dialog-fact"></span><button type="button" class="dialog-close" id="dialog-close">C'est noté&nbsp; ✓</button></div></div>
+	</dialog>
+
+	<script>
+		const filterButtons = document.querySelectorAll('.filter-button');
+		const dogCards = document.querySelectorAll('.dog-card');
+		const emptyState = document.getElementById('empty-state');
+
+		filterButtons.forEach((button) => {
+			button.addEventListener('click', () => {
+				const selected = button.dataset.filter;
+				let visibleCards = 0;
+				filterButtons.forEach((item) => {
+					const isActive = item === button;
+					item.classList.toggle('active', isActive);
+					item.setAttribute('aria-pressed', String(isActive));
+				});
+				dogCards.forEach((card) => {
+					const isVisible = selected === 'all' || card.dataset.size === selected;
+					card.hidden = !isVisible;
+					if (isVisible) visibleCards += 1;
+				});
+				emptyState.style.display = visibleCards ? 'none' : 'block';
+			});
+		});
+
+		document.querySelectorAll('.favorite').forEach((button) => {
+			button.addEventListener('click', () => {
+				const isFavorite = button.getAttribute('aria-pressed') !== 'true';
+				button.setAttribute('aria-pressed', String(isFavorite));
+				button.textContent = isFavorite ? '♥' : '♡';
+				const dogName = button.closest('.dog-card').dataset.name;
+				button.setAttribute('aria-label', `${isFavorite ? 'Retirer' : 'Ajouter'} ${dogName} ${isFavorite ? 'des' : 'aux'} favoris`);
+			});
+		});
+
+		const dogDialog = document.getElementById('dog-dialog');
+		document.querySelectorAll('.profile-button').forEach((button) => {
+			button.addEventListener('click', () => {
+				const card = button.closest('.dog-card');
+				document.getElementById('dialog-title').textContent = card.dataset.name;
+				document.getElementById('dialog-description').textContent = card.dataset.description;
+				document.getElementById('dialog-fact').textContent = card.dataset.fact;
+				const image = document.getElementById('dialog-image');
+				image.src = card.dataset.image;
+				image.alt = card.dataset.name;
+				dogDialog.showModal();
+			});
+		});
+		document.getElementById('dialog-close').addEventListener('click', () => dogDialog.close());
+		dogDialog.addEventListener('click', (event) => {
+			if (event.target === dogDialog) dogDialog.close();
+		});
+
+		document.getElementById('newsletter-form').addEventListener('submit', (event) => {
+			event.preventDefault();
+			const emailInput = document.getElementById('email');
+			if (!emailInput.checkValidity()) {
+				emailInput.reportValidity();
+				return;
+			}
+			document.getElementById('newsletter-message').textContent = 'Merci ! Votre prochaine dose de bonheur est en route 🐾';
+			event.currentTarget.reset();
+		});
+	</script>
+</body>
+</html>
