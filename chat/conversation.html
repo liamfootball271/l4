@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f7fc">
+  <title>Messages — Bulle</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body class="messages-page" data-page="messages">
+  <main class="messenger-shell">
+    <aside class="inbox-panel" aria-label="Vos conversations">
+      <div class="inbox-heading">
+        <div class="brand"><span class="brand-mark" aria-hidden="true">b.</span><span>Bulle</span></div>
+        <button class="icon-button" type="button" aria-label="Nouvelle conversation">＋</button>
+      </div>
+      <div class="inbox-title-row"><h1>Messages</h1><span class="unread-count">2</span></div>
+      <label class="search-box"><span aria-hidden="true">⌕</span><input type="search" placeholder="Rechercher une conversation" aria-label="Rechercher une conversation"></label>
+      <div class="filter-row"><button class="filter-chip is-selected" type="button">Tous</button><button class="filter-chip" type="button">Non lus <span>2</span></button></div>
+      <div class="contact-list">
+        <button class="contact-card is-active" type="button" aria-current="true">
+          <span class="avatar avatar-peach">É<span class="online-indicator"></span></span><span class="contact-copy"><strong>Émilie Laurent</strong><span>J’ai hâte d’être à samedi !</span></span><span class="contact-meta"><time>10:42</time><i class="unread-dot"></i></span>
+        </button>
+        <button class="contact-card" type="button">
+          <span class="avatar avatar-lilac">M</span><span class="contact-copy"><strong>Maxime Petit</strong><span>Merci pour les photos 📸</span></span><span class="contact-meta"><time>Hier</time><i class="unread-dot"></i></span>
+        </button>
+        <button class="contact-card" type="button">
+          <span class="avatar avatar-mint">L</span><span class="contact-copy"><strong>Lina Moreau</strong><span>Tu as vu cette recette ?</span></span><span class="contact-meta"><time>Mar.</time></span>
+        </button>
+        <button class="contact-card" type="button">
+          <span class="avatar avatar-blue">A</span><span class="contact-copy"><strong>Arthur Bernard</strong><span>À très vite !</span></span><span class="contact-meta"><time>Lun.</time></span>
+        </button>
+      </div>
+      <div class="profile-card"><span class="avatar avatar-profile">S</span><span><strong>Salut, toi !</strong><small>Mon espace</small></span><button class="profile-menu" type="button" aria-label="Options du profil">•••</button></div>
+    </aside>
+
+    <section class="conversation-panel" aria-label="Conversation avec Émilie Laurent">
+      <header class="conversation-header">
+        <div class="conversation-person"><span class="avatar avatar-peach">É<span class="online-indicator"></span></span><div><h2>Émilie Laurent</h2><p><i class="status-dot"></i> En ligne</p></div></div>
+        <div class="conversation-actions"><button class="icon-button" type="button" aria-label="Appeler Émilie">⌕</button><button class="icon-button" type="button" aria-label="Plus d’options">•••</button></div>
+      </header>
+      <div class="message-history" id="message-history" aria-live="polite" aria-label="Historique des messages">
+        <div class="day-divider"><span></span><time>Aujourd’hui</time><span></span></div>
+        <p class="message-time">10:38</p>
+        <div class="message-row received"><span class="avatar avatar-peach avatar-small">É</span><div class="message-bubble">Coucou ! Comment se passe ta semaine ?</div></div>
+        <div class="message-row sent"><div class="message-bubble">Coucou Émilie ! Très bien, et toi ? 😊</div></div>
+        <p class="message-time sent-time">10:40</p>
+        <div class="message-row received"><span class="avatar avatar-peach avatar-small">É</span><div class="message-bubble">Super ! J’ai trouvé un petit café trop mignon pour samedi ☕</div></div>
+        <div class="message-row sent"><div class="message-bubble">Oh oui ! Envoie-moi l’adresse 🌷</div></div>
+        <p class="message-time sent-time">10:41</p>
+        <div class="message-row received"><span class="avatar avatar-peach avatar-small">É</span><div class="message-bubble">Rue des Fleurs, juste à côté du parc !</div></div>
+        <div class="message-row received"><span class="avatar avatar-peach avatar-small">É</span><div class="message-bubble">J’ai hâte d’être à samedi ! <span class="message-reaction">♥ 1</span></div></div>
+      </div>
+      <form class="message-composer" id="message-form">
+        <button class="composer-extra" type="button" aria-label="Ajouter une pièce jointe">＋</button>
+        <label class="composer-input"><span class="visually-hidden">Votre message</span><input id="message-input" type="text" placeholder="Écrire un message…" autocomplete="off" required></label>
+        <button class="emoji-button" type="button" aria-label="Ajouter un sourire">☺</button>
+        <button class="send-button" type="submit" aria-label="Envoyer le message">↑</button>
+      </form>
+      <button class="back-home" type="button" data-go="index.html">← Retour à l’accueil</button>
+    </section>
+  </main>
+</body>
+</html>
